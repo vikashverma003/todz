@@ -1,0 +1,22 @@
+<h3>Payments</h3>
+<ul class="detailList">
+    <li>
+        <h4>Total</h4>
+        <p>${{ProjectManager::projectTotalPrice($project->id,\Auth::user()->id)}}</p>
+    </li>
+    <li>
+        <h4>Received</h4>
+        <p>
+        <p>${{$payments->isNotEmpty()?$payments->pluck('amount')->sum():0}}</p>
+    </li>
+    <li>
+        <h4>Pending</h4>
+        <p>
+            @if($payments->isNotEmpty())
+                <p>${{(ProjectManager::projectTotalPrice($project->id,\Auth::user()->id))-($payments->isNotEmpty()?$payments->pluck('amount')->sum()-$payments->pluck('amount')->sum():0)}}</p>
+            @else
+                <p>${{(ProjectManager::projectTotalPrice($project->id,\Auth::user()->id))-($payments->isNotEmpty()?$payments->pluck('amount')->sum():0)}}</p>
+            @endif
+        </p>
+    </li>
+</ul>
